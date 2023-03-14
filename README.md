@@ -1,66 +1,105 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<hr><h2 align="left">APRESENTAÇÃO</h2>
+
+<h3 align="left">
+  Esta é uma versão do <a href="https://github.com/tiagoeo/Website_Dinamico_Sistema_Jogos_Ranqueados">sistema de jogos ranqueados</a> no framework PHP Laravel; front-end em Semantic-UI e biblioteca JQuery.
+</h3>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://github.com/tiagoeo/website_dinamico_sistema_jogo_ranqueado/blob/main/static/img/wsjr_usuario_convidado.png" alt="Website usuário convidado" height="444" width="435">
 </p>
 
-## About Laravel
+<hr><h2 align="left">SOBRE</h2>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+<p align="left">
+  Esse sistema cadastra e efetua sessão de login via janela modal, informa em uma tabela os jogos e os pontos vinculados a conta. É possível jogar em "modo livre" sem possuir conta ou vinculo, também em "modo ranqueado" que dependendo do game o jogador pode ganhar ou perder pontos. Este trabalho é a junção dos projetos <a href="https://github.com/tiagoeo/website_dinamico_formulario_para_Whatsapp">website dinamico com formulario para Whatsapp</a> e do <a href="https://github.com/tiagoeo/website_game_memoria">jogo da memória com icones</a> (possui versão de "modo livre" disponível no <a href="https://tiagoeo.github.io/Website_Game_Memoria/">github-pages</a>).
+</p>
+<p align="center">
+  <img src="https://github.com/tiagoeo/website_dinamico_sistema_jogo_ranqueado/blob/main/static/img/wsjr_usuario_logado.png" alt="Website usuário logado" height="444" width="435">
+</p>
+<p align="left">
+  O objetivo é fornecer após o login, a opção de vincular a pontuação dos jogos no site via método POST do HTTP/HTTPS. Cada game tem de forma similar o seguinte padrão de fluxo dos botões.
+</p>
+<p align="center">
+  <img src="https://github.com/tiagoeo/website_dinamico_sistema_jogo_ranqueado/blob/main/static/img/wsjr_botao_game_fluxo.png" alt="Fluxo botão game" height="216" width="392">
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<hr><h2 align="left">INFORMAÇÕES E REGRAS DO JOGO DA MEMÓRIA</h2>
+<p align="left">
+  <ul>
+    <li>No 'Modo Livre' inicia o jogo sem a necessidade de logar, contudo não pontua no ranque do site;</li>
+    <li>Em 'Modo Ranqueado' é necessário login e criar um vinculo com o game, será carregado o jogo com a última pontuação salva, mantendo a dificuldade em relação ao pontos;</li>
+    <li>O botão de 'Nova fase', cria um novo jogo e mantém os pontos atuais, mas caso pressionado antes de terminar a fase perde-se o bônus;</li>
+    <li>Até 50 pontos, o tempo de memorizar os icones são de 4 seg, bônus de 5 pontos em acertos sem erros, após o primeiro erro perde-se o bônus, mas não há penalidades em novos erros;</li>
+    <li>A partir de 50 pontos, o bônus passa para 2 e o tempo para memorizar passa a 3 seg, em caso de erro é perdido o bônus e descontado 1 ponto por cada erro;</li>
+    <li>Depois dos 100 pontos, não há bônus, erros passam a descontar 2 pontos;</li>
+    <li>Após 150 pontos, o tempo de memorizar é 2 seg;</li>
+  </ul>
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+<hr><h2 align="left">DIAGRAMA DO BANCO DE DADOS</h2>
+<h4 align="left">TABELAS: WEBSITE, PAGINAS, GRIDS E USUARIOS.</h4> 
+  <p align="left">
+    <ul>
+    <li>Possuem colunas padrão de sites dinâmicos.</li>
+    </ul>
+  </p>
+<h4 align="left">TABELA: PONTUACOES</h4>
+  <p align="left">
+    <ul>
+      <li>idusuario: Chave estrangeira da tabela usuarios.</li>
+      <li>idgame: Chave estrangeira da tabela games.</li>
+      <li>pontos: Local para armazenar pontuações do tipo inteiro.</li>
+      <li>extras: Armazena pontuações ou o próprio inventário do tipo array ou json.</li>
+    </ul>
+  </p>
+<h4 align="left">TABELA: GAMES</h4>
+<p align="left">
+  <ul>
+    <li>nome: O nome do jogo.</li>
+    <li>bonus: Controla o bônus do game que será multiplicado na pontuação do usuário.</li>
+  </ul>
+</p>
+<p align="center">
+  <img src="https://github.com/tiagoeo/website_dinamico_sistema_jogo_ranqueado/blob/main/static/img/wsjr_eer_diagrama.png" alt="EER Diagrama db" height="411" width="542">
+</p>
 
-## Learning Laravel
+<hr><h2 align="left">REQUERIMENTOS</h2>
+<p align="left">
+  <ul>
+    <li>Servidor compatível com Laravel v10.3.3 (PHP v8.2.0) e banco de dados MySQL.</li>
+  </ul>
+</p>
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<hr><h2 align="left">LINGUAGENS E FERRAMENTAS</h2>
+<p align="center">
+  <a href="https://git-scm.com/" target="_blank" rel="noreferrer">
+    <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/>
+  </a>
+  <a href="https://laravel.com/" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-plain-wordmark.svg" alt="laravel" width="40" height="40"/> 
+  </a> 
+  <a href="https://semantic-ui.com" target="_blank" rel="noreferrer"> 
+    <img src="https://semantic-ui.com/images/logo.png" alt="Semantic-UI" width="40" height="40"/>
+  </a>
+  <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/>
+  </a>
+  <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/>
+  </a>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> 
+  </a>
+  <a href="https://jquery.com/" target="_blank" rel="noreferrer"> 
+    <img src="https://icon-library.com/images/jquery-icon-png/jquery-icon-png-7.jpg" alt="JQuery" width="40" height="40"/>
+  </a>
+  <a href="https://pt.m.wikipedia.org/wiki/Ajax_(programa%C3%A7%C3%A3o)" target="_blank" rel="noreferrer"> 
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/AJAX_logo_by_gengns.svg" alt="Ajax" width="40" height="40"/>
+  </a>
+  <a href="https://www.php.net" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/php/php-original.svg" alt="php" width="40" height="40"/>
+  </a>
+  <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> 
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/>
+  </a> 
+</p>
