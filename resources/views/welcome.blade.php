@@ -1,8 +1,10 @@
 @extends('layouts.main')
 
-@section('title', 'Website dinâmico com jogos ranqueados')
+@section('title', $pagina->titulo)
 
 @section('content')
+
+@if ($website->manutencao == 0)
 
     {{-- Header --}}
     @include('navbars.header-menu-guest')
@@ -14,7 +16,7 @@
                 <div class="column">
                     <form class="ui form" id="formularioLogin">
                         <div class="field" id="fieldUsuarioLogin">
-                            <label>Usuário</label>
+                            <label>@lang('welcome.user')</label>
                             <div class="ui left icon input">
                                 <input type="text" placeholder="Usuário" name="usuarioLogin" id="usuarioLogin">
                                 <i class="user icon"></i>
@@ -23,7 +25,7 @@
                             </div>
                         </div>
                         <div class="field" id="fieldSenhaLogin">
-                            <label>Senha</label>
+                            <label>@lang('welcome.password')</label>
                             <div class="ui left icon input">
                                 <input type="password" name="senhaLogin" id="senhaLogin">
                                 <i class="lock icon"></i>
@@ -35,21 +37,23 @@
                         </div>
                         <div class="ui blue submit button" id="btnLogin">
                             <i class="sign-in icon"></i>
-                            Login
+                            @lang('welcome.login')
                         </div>
                     </form>
                 </div>
                 <div class="middle aligned column">
                     <div class="ui big button" id="btnCadastro">
                         <i class="signup icon"></i>
-                        Cadastro
+                        @lang('welcome.register')
                     </div>
                 </div>
             </div>
             <div class="ui vertical divider" id="ou">
-                Ou
+                @lang('welcome.or')
             </div>
         </div>
     </main>
-
+@else
+    @include('manutencao')
+@endif
 @endsection
