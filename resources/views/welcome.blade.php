@@ -14,36 +14,36 @@
         <div class="ui placeholder segment ui autumn leaf" id="uiLogin">
             <div class="ui two column very relaxed stackable grid">
                 <div class="column">
-                    <form class="ui form" id="formularioLogin">
+                    <form class="ui form" id="formularioLoginMenu">
                         @csrf
-                        <div class="field" id="fieldUsuarioLogin">
-                            <label>@lang('welcome.user')</label>
+                        <div class="field" id="fieldEmailLoginMenu">
+                            <label>Email</label>
                             <div class="ui left icon input">
-                                <input type="text" placeholder="Email" name="email" id="email">
+                                <input type="text" placeholder="Email" name="email" id="emailLoginMenu">
                                 <i class="user icon"></i>
                             </div>
-                            <div id="mensageUsuarioLogin">
+                            <div id="messageEmailLoginMenu">
                             </div>
                         </div>
-                        <div class="field" id="fieldSenhaLogin">
+                        <div class="field" id="fieldPasswordLoginMenu">
                             <label>@lang('welcome.password')</label>
                             <div class="ui left icon input">
-                                <input type="password" name="password" id="password">
+                                <input type="password" name="password" id="passwordLoginMenu">
                                 <i class="lock icon"></i>
                             </div>
-                            <div id="mensageSenhaLogin">
+                            <div id="messagePasswordLoginMenu">
                             </div>
-                            <div id="mensageLogin">
+                            <div id="messageLoginMenu">
                             </div>
                         </div>
-                        <div class="ui blue submit button" id="btnLogin">
+                        <div class="ui blue submit button" id="btnLoginMenu">
                             <i class="sign-in icon"></i>
                             @lang('welcome.login')
                         </div>
                     </form>
                 </div>
                 <div class="middle aligned column">
-                    <div class="ui big button" id="btnCadastro">
+                    <div class="ui big button" id="btnOpenRegisterModal">
                         <i class="signup icon"></i>
                         @lang('welcome.register')
                     </div>
@@ -97,20 +97,216 @@
     @endforeach
     {{-- Fim Grids Games --}}
 
+    {{-- Modals --}}
+        @include('modals.login-modal')
+        @include('modals.register-modal')
+    {{-- Fim Modals --}}
+
 @else
     @include('manutencao')
 @endif
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
     <script>
+        $("#btnLoginMenu").click(function(){
+            if(validarLogin(1)){
+                submitLogin(1);
+            }
+        });
 
-        function buscaClassificacao(){  
+        $("#btnLoginModal").click(function(){
+            if(validarLogin(2)){
+                submitLogin(2);
+            }
+        });
+
+        $("#btnRegisterModal").click(function(){
+            if(validarRegister()){
+                submitRegister();
+            }
+        });
+
+        $("#btnOpenLoginModal").click(function(){
+            $("#loginModal").modal('show');
+        });
+
+        $("#btnOpenRegisterModal").click(function(){
+            $("#registerModal").modal('show');
+        });
+
+        function buscarClassificacao(){  
             $('[name="gmClassificacao"]').each(function(index) { 
                 submitClassificacao($( this ).attr("value"));
             });
         }
 
-        function submitClassificacao(gm) {
+        function validarLogin(tipo){
+            if (tipo == 1){
+                var email = $("#emailLoginMenu");
+                var password = $("#passwordLoginMenu");
+
+                if(!email.val() || email.val().length < 3){
+                    $('#fieldEmailLoginMenu').addClass('error');
+                    $('#messageEmailLoginMenu').html('<div class="ui pointing label">Digite seu email</div>');
+                    return false;
+                }else if(!validaEmail(email.val())){
+					$('#fieldEmailLoginMenu').addClass('error');
+					$('#messageEmailLoginMenu').html('Formato de email inválido! ex.: exemplo@exemplo.com');
+                    return false;
+                }else{
+                    $('#fieldEmailLoginMenu').removeClass('error');
+                    $('#messageEmailLoginMenu').html('');
+                }
+
+                if(!password.val() || password.val().length < 4){
+                    $('#fieldPasswordLoginMenu').addClass('error');
+                    $('#messagePasswordLoginMenu').html('<div class="ui pointing label">Mínimo 4 (quatro) caracteres</div>');
+                    return false;
+                }else{
+                    $('#fieldPasswordLoginMenu').removeClass('error');
+                    $('#messagePasswordLoginMenu').html('');
+                }
+                return true;
+            }else{
+                var email = $("#emailLoginModal");
+                var password = $("#passwordLoginModal");
+
+                if(!email.val() || email.val().length < 3){
+                    $('#fieldEmailLoginModal').addClass('error');
+                    $('#messageEmailLoginModal').html('<div class="ui pointing label">Digite seu email</div>');
+                    return false;
+                }else if(!validaEmail(email.val())){
+					$('#fieldEmailLoginModal').addClass('error');
+					$('#messageEmailLoginModal').html('Formato de email inválido! ex.: exemplo@exemplo.com');
+                    return false;
+                }else{
+                    $('#fieldEmailLoginModal').removeClass('error');
+                    $('#messageEmailLoginModal').html('');
+                }
+
+                if(!password.val() || password.val().length < 4){
+                    $('#fieldPasswordLoginModal').addClass('error');
+                    $('#messagePasswordLoginModal').html('<div class="ui pointing label">Mínimo 4 (quatro) caracteres</div>');
+                    return false;
+                }else{
+                    $('#fieldPasswordLoginModal').removeClass('error');
+                    $('#messagePasswordLoginModal').html('');
+                }
+                return true;
+            }
+            function validaEmail(em) {
+                var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                return regex.test(em);
+            }
+        }
+
+        function validarRegister(){
+                var nome = $("#nameRegisterModal");
+                var email = $("#emailRegisterModal");
+                var email2 = $("#email2RegisterModal");
+				var senha = $("#passwordRegisterModal");
+                var senha2 = $("#password2RegisterModal");
+                var checkbox = $("#checkboxRegisterModal");
+
+                if(!nome.val() || nome.val().length < 3){
+					$('#fieldNameRegisterModal').addClass('error');
+                    $('#messageNameRegisterModal').html('<div class="ui pointing label">Mínimo 3 (três) caracteres</div>');
+					return false;
+				}else{
+					$('#fieldNameRegisterModal').removeClass('error');
+                    $('#messageNameRegisterModal').html('');
+				}
+
+                if(!email.val()){
+					$('#fieldEmailRegisterModal').addClass('error');
+                    $('#messageEmailRegisterModal').html('<div class="ui pointing label">Campo em branco!, digite seu email</div>');
+					return false;
+				}else if(!validaEmail(email.val())){
+					$('#fieldEmailRegisterModal').addClass('error');
+                    $('#messageEmailRegisterModal').html('<div class="ui pointing label">Formato de email inválido! ex.: exemplo@exemplo.com</div>');
+					return false;
+				}else{
+					$('#fieldEmailRegisterModal').removeClass('error');
+                    $('#messageEmailRegisterModal').html('');
+				}
+
+                if(!email2.val()){
+					$('#fieldEmail2RegisterModal').addClass('error');
+                    $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Campo em branco!, digite novamente seu email</div>');
+					return false;
+				}else if(!validaEmail(email2.val())){
+					$('#fieldEmail2RegisterModal').addClass('error');
+                    $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Formato de email inválido! ex.: exemplo@exemplo.com</div>');
+					return false;
+				}else if(email.val() != email2.val()){
+					$('#fieldEmail2RegisterModal').addClass('error');
+                    $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Emails diferentes.');
+					return false;
+                }else{
+					$('#fieldEmail2RegisterModal').removeClass('error');
+                    $('#messageEmail2RegisterModal').html('');
+				}
+                
+
+				if(!senha.val() || senha.val().length < 7){
+					$('#fieldPasswordRegisterModal').addClass('error');
+                    $('#messagePasswordRegisterModal').html('<div class="ui pointing label">Mínimo 8 (oito) caracteres</div>');
+					return false;
+				}else{
+					$('#fieldPasswordRegisterModal').removeClass('error');
+                    $('#messagePasswordRegisterModal').html('');
+				}
+
+                if(!senha2.val() || senha2.val().length < 7){
+					$('#fieldPassword2RegisterModal').addClass('error');
+                    $('#messagePassword2RegisterModal').html('<div class="ui pointing label">Mínimo 8 (oito) caracteres</div>');
+					return false;
+				}else if(senha.val() != senha2.val()){
+					$('#fieldPassword2RegisterModal').addClass('error');
+                    $('#messagePassword2RegisterModal').html('<div class="ui pointing label">A confirmação para o campo senha não coincide.');
+					return false;
+                }else{
+					$('#fieldPassword2RegisterModal').removeClass('error');
+                    $('#messagePassword2RegisterModal').html('');
+				}
+
+                if(!checkbox.is(':checked')){
+                    $('#fieldCheckboxRegisterModal').addClass('error');
+                    return false;
+				}else{
+                    $('#fieldCheckboxRegisterModal').removeClass('error');
+                }
+
+				return true;
+
+                function validaEmail(em) {
+					var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+					return regex.test(em);
+				}
+            }
+
+        
+            function clearRegister(){
+                $('#fieldNameRegisterModal').removeClass('error');
+                $('#messageNameRegisterModal').html('');
+
+                $('#fieldEmailRegisterModal').removeClass('error');
+                $('#messageEmailRegisterModal').html('');
+
+                $('#fieldEmail2RegisterModal').removeClass('error');
+                $('#messageEmail2RegisterModal').html('');
+
+                $('#fieldPasswordRegisterModal').removeClass('error');
+                $('#messagePasswordRegisterModal').html('');
+
+                $('#fieldPassword2RegisterModal').removeClass('error');
+                $('#messagePassword2RegisterModal').html('');
+
+                $('#mensageRegisterModal').html('');
+            }
+
+        
+            function submitClassificacao(gm) {
             var dados = {"_token": "{{ csrf_token() }}", "game": gm};
             $.ajax({ 
                 url: "/",
@@ -153,8 +349,105 @@
             });
         }
 
+        function submitLogin(tp) {
+            var dados;
+            if (tp == 1){
+                dados = $('#formularioLoginMenu').serialize();
+            }else{
+                dados = $('#formularioLoginModal').serialize();
+            }
+            $.ajax({ 
+                url: "{{ route('login') }}",
+                data: dados,
+                type: "POST",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                success: function(retorno){
+                    if (retorno != null){
+                        if (tp == 1){
+                            $('#formularioLoginMenu').removeClass('loading');
+                        }else{
+                            $('#formularioLoginModal').removeClass('loading');
+                        }
+                    }   
+                },
+                beforeSend: function() { 
+                    if (tp == 1){
+                        $('#formularioLoginMenu').addClass('loading');
+                    }else{
+                        $('#formularioLoginModal').addClass('loading');
+                    }
+                },
+                error: function(e) {
+                    if (tp == 1){
+                        $('#formularioLoginMenu').removeClass('loading');
+                        $('#messageLoginMenu').html('');
+                    }else{
+                        $('#formularioLoginModal').removeClass('loading');
+                        $('#messageLoginModal').html('');
+                    }
+
+                    if(!e.responseJSON){
+                        //console.log(e.responseText);
+                        window.location.href = "{{ route('dashboard') }}";
+                    }else{
+                        $.each(e.responseJSON.errors, function (key, value) {
+                            if (key == 'password'){
+                                if (tp == 1){
+                                    $('#messagePasswordLoginMenu').html(value);
+                                }else{
+                                    $('#messagePasswordLoginModal').html(value);
+                                }
+                            }else if (key == 'email'){
+                                if (tp == 1){
+                                    $('#messageEmailLoginMenu').html(value);
+                                }else{
+                                    $('#messageEmailLoginModal').html(value);
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function submitRegister() {
+            $.ajax({ 
+                url: "{{ route('register') }}",
+                data: $('#formularioRegisterModal').serialize(),
+                type: "POST",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                success: function(retorno){
+                    if (retorno != null){
+                        $('#formularioRegisterModal').removeClass('loading');
+                    }   
+                },
+                beforeSend: function() { 
+                    $('#formularioRegisterModal').addClass('loading');
+
+                },
+                error: function(e) {
+                    $('#formularioRegisterModal').removeClass('loading');
+
+                    if(!e.responseJSON){
+                        //console.log(e.responseText);
+                        //window.location.href = "{{ route('dashboard') }}";
+                    }else{
+                        $.each(e.responseJSON.errors, function (key, value) {
+                            if (key == 'password'){
+                                $('#messagePasswordLoginMenu').html(value);
+                            }else if (key == 'email'){
+                                $('#messageEmailLoginModal').html(value);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
         $(window).on("load", function() {
-            buscaClassificacao();
+            buscarClassificacao();
 		});
     </script>
 @endsection
