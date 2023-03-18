@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('paginas_id')->constrained();
+            $table->foreignId('jogo_id');
             $table->string('titulo', 50);
             $table->longText('descricao')->nullable();
             $table->longText('img')->nullable();

@@ -22,7 +22,7 @@
 
         @yield('content')
 
-        <!-- Rodapé -->
+        {{-- Rodapé --}}
         <div class="ui inverted vertical footer segment"> 
             <div class="ui center aligned container"> 
                 <div class="ui stackable inverted divided grid">
@@ -35,9 +35,6 @@
                 </div>
             </div>
         </div>
-        <!-- // Rodapé -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-        <script></script>
+        {{-- Fim Rodapé --}}
     </body>
 </html>

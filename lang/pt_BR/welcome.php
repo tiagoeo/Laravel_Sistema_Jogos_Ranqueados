@@ -9,4 +9,8 @@ return [
     'password' => 'Senha',
     'or' => 'OU',
     'register' => 'CADASTRO',
+    'name' => 'Nome',
+    'points' => 'Pontos',
+    'rank' => 'Classificação',
+    'players' => 'Total Jogadores',
 ];
