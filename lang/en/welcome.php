@@ -13,4 +13,8 @@ return [
     'points' => 'Points',
     'rank' => 'Rank',
     'players' => 'Total Players',
+    'logout' => 'Logout',
+    'total_games' => 'Total Games',
+    'linked_games' => 'Linked Games',
+    'my_scores' => 'My scores',
 ];

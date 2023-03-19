@@ -13,4 +13,9 @@ return [
     'points' => 'Pontos',
     'rank' => 'Classificação',
     'players' => 'Total Jogadores',
+    'logout' => 'Sair',
+    'total_games' => 'Total de Jogos',
+    'linked_games' => 'Jogos vinculados',
+    'my_scores' => 'Minhas pontuações',
+     
 ];

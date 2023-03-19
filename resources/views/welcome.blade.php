@@ -7,53 +7,10 @@
 @if ($website->manutencao == 0)
 
     {{-- Menu --}}
-    @include('navbars.header-menu-guest')
+    @include('navbars.header-menu-navbar')
 
     {{-- Main --}}
-    <main>
-        <div class="ui placeholder segment ui autumn leaf" id="uiLogin">
-            <div class="ui two column very relaxed stackable grid">
-                <div class="column">
-                    <form class="ui form" id="formularioLoginMenu">
-                        @csrf
-                        <div class="field" id="fieldEmailLoginMenu">
-                            <label>Email</label>
-                            <div class="ui left icon input">
-                                <input type="text" placeholder="Email" name="email" id="emailLoginMenu">
-                                <i class="user icon"></i>
-                            </div>
-                            <div id="messageEmailLoginMenu">
-                            </div>
-                        </div>
-                        <div class="field" id="fieldPasswordLoginMenu">
-                            <label>@lang('welcome.password')</label>
-                            <div class="ui left icon input">
-                                <input type="password" name="password" id="passwordLoginMenu">
-                                <i class="lock icon"></i>
-                            </div>
-                            <div id="messagePasswordLoginMenu">
-                            </div>
-                            <div id="messageLoginMenu">
-                            </div>
-                        </div>
-                        <div class="ui blue submit button" id="btnLoginMenu">
-                            <i class="sign-in icon"></i>
-                            @lang('welcome.login')
-                        </div>
-                    </form>
-                </div>
-                <div class="middle aligned column">
-                    <div class="ui big button" id="btnOpenRegisterModal">
-                        <i class="signup icon"></i>
-                        @lang('welcome.register')
-                    </div>
-                </div>
-            </div>
-            <div class="ui vertical divider" id="ou">
-                @lang('welcome.or')
-            </div>
-        </div>
-    </main>
+    @include('navbars.main-menu')
     {{-- Fim Main --}}
 
     {{-- Grids Games --}}
@@ -201,115 +158,113 @@
         }
 
         function validarRegister(){
-                var nome = $("#nameRegisterModal");
-                var email = $("#emailRegisterModal");
-                var email2 = $("#email2RegisterModal");
-				var senha = $("#passwordRegisterModal");
-                var senha2 = $("#password2RegisterModal");
-                var checkbox = $("#checkboxRegisterModal");
+            var nome = $("#nameRegisterModal");
+            var email = $("#emailRegisterModal");
+            var email2 = $("#email2RegisterModal");
+            var senha = $("#passwordRegisterModal");
+            var senha2 = $("#password2RegisterModal");
+            var checkbox = $("#checkboxRegisterModal");
 
-                if(!nome.val() || nome.val().length < 3){
-					$('#fieldNameRegisterModal').addClass('error');
-                    $('#messageNameRegisterModal').html('<div class="ui pointing label">Mínimo 3 (três) caracteres</div>');
-					return false;
-				}else{
-					$('#fieldNameRegisterModal').removeClass('error');
-                    $('#messageNameRegisterModal').html('');
-				}
-
-                if(!email.val()){
-					$('#fieldEmailRegisterModal').addClass('error');
-                    $('#messageEmailRegisterModal').html('<div class="ui pointing label">Campo em branco!, digite seu email</div>');
-					return false;
-				}else if(!validaEmail(email.val())){
-					$('#fieldEmailRegisterModal').addClass('error');
-                    $('#messageEmailRegisterModal').html('<div class="ui pointing label">Formato de email inválido! ex.: exemplo@exemplo.com</div>');
-					return false;
-				}else{
-					$('#fieldEmailRegisterModal').removeClass('error');
-                    $('#messageEmailRegisterModal').html('');
-				}
-
-                if(!email2.val()){
-					$('#fieldEmail2RegisterModal').addClass('error');
-                    $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Campo em branco!, digite novamente seu email</div>');
-					return false;
-				}else if(!validaEmail(email2.val())){
-					$('#fieldEmail2RegisterModal').addClass('error');
-                    $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Formato de email inválido! ex.: exemplo@exemplo.com</div>');
-					return false;
-				}else if(email.val() != email2.val()){
-					$('#fieldEmail2RegisterModal').addClass('error');
-                    $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Emails diferentes.');
-					return false;
-                }else{
-					$('#fieldEmail2RegisterModal').removeClass('error');
-                    $('#messageEmail2RegisterModal').html('');
-				}
-                
-
-				if(!senha.val() || senha.val().length < 7){
-					$('#fieldPasswordRegisterModal').addClass('error');
-                    $('#messagePasswordRegisterModal').html('<div class="ui pointing label">Mínimo 8 (oito) caracteres</div>');
-					return false;
-				}else{
-					$('#fieldPasswordRegisterModal').removeClass('error');
-                    $('#messagePasswordRegisterModal').html('');
-				}
-
-                if(!senha2.val() || senha2.val().length < 7){
-					$('#fieldPassword2RegisterModal').addClass('error');
-                    $('#messagePassword2RegisterModal').html('<div class="ui pointing label">Mínimo 8 (oito) caracteres</div>');
-					return false;
-				}else if(senha.val() != senha2.val()){
-					$('#fieldPassword2RegisterModal').addClass('error');
-                    $('#messagePassword2RegisterModal').html('<div class="ui pointing label">A confirmação para o campo senha não coincide.');
-					return false;
-                }else{
-					$('#fieldPassword2RegisterModal').removeClass('error');
-                    $('#messagePassword2RegisterModal').html('');
-				}
-
-                if(!checkbox.is(':checked')){
-                    $('#fieldCheckboxRegisterModal').addClass('error');
-                    return false;
-				}else{
-                    $('#fieldCheckboxRegisterModal').removeClass('error');
-                }
-
-				return true;
-
-                function validaEmail(em) {
-					var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-					return regex.test(em);
-				}
-            }
-
-        
-            function clearRegister(){
+            if(!nome.val() || nome.val().length < 3){
+                $('#fieldNameRegisterModal').addClass('error');
+                $('#messageNameRegisterModal').html('<div class="ui pointing label">Mínimo 3 (três) caracteres</div>');
+                return false;
+            }else{
                 $('#fieldNameRegisterModal').removeClass('error');
                 $('#messageNameRegisterModal').html('');
-
-                $('#fieldEmailRegisterModal').removeClass('error');
-                $('#messageEmailRegisterModal').html('');
-
-                $('#fieldEmail2RegisterModal').removeClass('error');
-                $('#messageEmail2RegisterModal').html('');
-
-                $('#fieldPasswordRegisterModal').removeClass('error');
-                $('#messagePasswordRegisterModal').html('');
-
-                $('#fieldPassword2RegisterModal').removeClass('error');
-                $('#messagePassword2RegisterModal').html('');
-
-                $('#mensageRegisterModal').html('');
             }
 
+            if(!email.val()){
+                $('#fieldEmailRegisterModal').addClass('error');
+                $('#messageEmailRegisterModal').html('<div class="ui pointing label">Campo em branco!, digite seu email</div>');
+                return false;
+            }else if(!validaEmail(email.val())){
+                $('#fieldEmailRegisterModal').addClass('error');
+                $('#messageEmailRegisterModal').html('<div class="ui pointing label">Formato de email inválido! ex.: exemplo@exemplo.com</div>');
+                return false;
+            }else{
+                $('#fieldEmailRegisterModal').removeClass('error');
+                $('#messageEmailRegisterModal').html('');
+            }
+
+            if(!email2.val()){
+                $('#fieldEmail2RegisterModal').addClass('error');
+                $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Campo em branco!, digite novamente seu email</div>');
+                return false;
+            }else if(!validaEmail(email2.val())){
+                $('#fieldEmail2RegisterModal').addClass('error');
+                $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Formato de email inválido! ex.: exemplo@exemplo.com</div>');
+                return false;
+            }else if(email.val() != email2.val()){
+                $('#fieldEmail2RegisterModal').addClass('error');
+                $('#messageEmail2RegisterModal').html('<div class="ui pointing label">Emails diferentes.');
+                return false;
+            }else{
+                $('#fieldEmail2RegisterModal').removeClass('error');
+                $('#messageEmail2RegisterModal').html('');
+            }
+            
+
+            if(!senha.val() || senha.val().length < 7){
+                $('#fieldPasswordRegisterModal').addClass('error');
+                $('#messagePasswordRegisterModal').html('<div class="ui pointing label">Mínimo 8 (oito) caracteres</div>');
+                return false;
+            }else{
+                $('#fieldPasswordRegisterModal').removeClass('error');
+                $('#messagePasswordRegisterModal').html('');
+            }
+
+            if(!senha2.val() || senha2.val().length < 7){
+                $('#fieldPassword2RegisterModal').addClass('error');
+                $('#messagePassword2RegisterModal').html('<div class="ui pointing label">Mínimo 8 (oito) caracteres</div>');
+                return false;
+            }else if(senha.val() != senha2.val()){
+                $('#fieldPassword2RegisterModal').addClass('error');
+                $('#messagePassword2RegisterModal').html('<div class="ui pointing label">A confirmação para o campo senha não coincide.');
+                return false;
+            }else{
+                $('#fieldPassword2RegisterModal').removeClass('error');
+                $('#messagePassword2RegisterModal').html('');
+            }
+
+            if(!checkbox.is(':checked')){
+                $('#fieldCheckboxRegisterModal').addClass('error');
+                return false;
+            }else{
+                $('#fieldCheckboxRegisterModal').removeClass('error');
+            }
+
+            return true;
+
+            function validaEmail(em) {
+                var regex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                return regex.test(em);
+            }
+        }
         
-            function submitClassificacao(gm) {
+        function clearRegister(){
+            $('#fieldNameRegisterModal').removeClass('error');
+            $('#messageNameRegisterModal').html('');
+
+            $('#fieldEmailRegisterModal').removeClass('error');
+            $('#messageEmailRegisterModal').html('');
+
+            $('#fieldEmail2RegisterModal').removeClass('error');
+            $('#messageEmail2RegisterModal').html('');
+
+            $('#fieldPasswordRegisterModal').removeClass('error');
+            $('#messagePasswordRegisterModal').html('');
+
+            $('#fieldPassword2RegisterModal').removeClass('error');
+            $('#messagePassword2RegisterModal').html('');
+
+            $('#mensageRegisterModal').html('');
+        }
+        
+        function submitClassificacao(gm) {
             var dados = {"_token": "{{ csrf_token() }}", "game": gm};
             $.ajax({ 
-                url: "/",
+                url: "/cls",
                 data: dados,
                 type: "POST",
                 dataType: "json",
@@ -446,8 +401,46 @@
             });
         }
 
+        function submitMyScores() {
+            var dados = {"_token": "{{ csrf_token() }}"};
+            $.ajax({ 
+                url: "/mycls",
+                data: dados,
+                type: "POST",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                success: function(retorno){
+                    if (retorno != null){
+                        $('#minhasPontuacoes').html('');
+                        var totalGames = Object.keys(retorno).length;
+
+                        for(i = 0; i <= totalGames; i++){
+                            if (typeof retorno[i] !== 'undefined'){
+                                $('#minhasPontuacoes').append('<tr><td>'+retorno[i].nome+'</td><td>'+retorno[i].pontos+'</td></tr>');
+                            }
+                        }
+
+                        $('#meuTotalJogos').html("<tr><th>@lang('welcome.total_games')</th><th>"+totalGames+"</th></tr>");
+                    }else{
+                        $('#minhasPontuacoes').html('');
+                        $('#meuTotalJogos').html("<tr><th>@lang('welcome.total_games')</th><th>0</th></tr>");
+                    }
+                    
+                },
+                beforeSend: function() { 
+                    $('#gamePontuacoes').html('<div class="ui active loader"></div>');
+                },
+                error: function(e) {
+                    $('#meuTotalJogos').html('<tr><th>Erro: ao buscar informações.</th></tr>');
+                }
+            });
+        }
+
         $(window).on("load", function() {
             buscarClassificacao();
+            @auth
+            submitMyScores();
+            @endauth
 		});
     </script>
 @endsection

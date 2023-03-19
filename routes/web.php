@@ -17,7 +17,9 @@ use App\Http\Controllers\WebsiteController;
 
 Route::get('/', [WebsiteController::class, 'index']);
 
-Route::post('/', [WebsiteController::class, 'classificacao']);
+Route::post('/cls', [WebsiteController::class, 'classificacao']);
+
+Route::post('/mycls', [WebsiteController::class, 'myScores']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

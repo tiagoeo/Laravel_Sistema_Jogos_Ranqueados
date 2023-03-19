@@ -55,4 +55,20 @@ class WebsiteController extends Controller
             }            
         }
     }
+
+    public function myScores(Request $request){
+
+        if ($request->has('_token')) {
+            if ($request->filled('_token')) {
+                $user_email = auth()->user()->email;
+
+                $myScores = Pontuacoes::join('users', 'users.id', '=', 'pontuacoes.users_id')
+                                    ->join('games', 'games.id', '=', 'pontuacoes.games_id')
+                                    ->select('pontuacoes.pontos', 'pontuacoes.extras', 'games.nome', 'games.bonus')
+                                    ->where('users.email', '=', $user_email)
+                                    ->get();
+                return json_encode($myScores);  
+            }            
+        }
+    }
 }
